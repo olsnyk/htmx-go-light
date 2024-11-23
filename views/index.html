@@ -2,12 +2,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>Gelato, gelato</title>
         <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        Icecream {{ .Icecream }}
-        <button hx-post="/icecream">Get more gelato</button>
+    <body class="flex justify-center m-10 align-middle py-1">
+        <div id="icecream" class="px-2">
+            {{ template "icecream" . }}
+        </div>
+        <button hx-target="#icecream" hx-post="/icecream" class="bg-pink-200 px-2 py-1 rounded text-slate-700 ">Get more gelato</button>
     </body>
 </html>
+{{ end }}
+
+
+{{ block "icecream" .}}
+    <span class="flex align-middle py-1">
+        Icecream {{ .Icecream }}
+    </span>
 {{ end }}

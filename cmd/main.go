@@ -35,12 +35,12 @@ func main() {
 	e.Renderer = newTemplate()
 
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index.html", icecream)
+		return c.Render(200, "index", icecream)
 	})
 
 	e.POST("/icecream", func(c echo.Context) error {
 		icecream.Icecream++
-		return c.Render(200, "index.html", icecream)
+		return c.Render(200, "icecream", icecream)
 	})
 
 	e.Logger.Fatal(e.Start(":42069"))
