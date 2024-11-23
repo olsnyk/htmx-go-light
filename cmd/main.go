@@ -22,8 +22,8 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.tmpl.ExecuteTemplate(w, name, data)
 }
 
-type Count struct {
-	Count int
+type Icecream struct {
+	Icecream int
 }
 
 func main() {
@@ -31,12 +31,16 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
-	count := Count{Count: 0}
+	icecream := Icecream{Icecream: 0}
 	e.Renderer = newTemplate()
 
 	e.GET("/", func(c echo.Context) error {
-		count.Count++
-		return c.Render(200, "index.html", count)
+		return c.Render(200, "index.html", icecream)
+	})
+
+	e.POST("/icecream", func(c echo.Context) error {
+		icecream.Icecream++
+		return c.Render(200, "index.html", icecream)
 	})
 
 	e.Logger.Fatal(e.Start(":42069"))
