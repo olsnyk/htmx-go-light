@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rebeccapurple;
 }
 .htmx-indicator {
     opacity:0;
@@ -13,4 +12,9 @@ body {
 }
 .htmx-request.htmx-indicator{
     opacity:1
+}
+
+.contact.htmx-swapping {
+    opacity:0;
+    transition: opacity 500ms ease-in;
 }

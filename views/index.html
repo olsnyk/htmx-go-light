@@ -8,19 +8,30 @@
         <title>Gelato, gelato</title>
         <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/css/index.css">
+
     </head>
-    <body class="flex justify-center m-10 align-middle py-1">
-        <div id="icecream" class="px-2">
-            {{ template "icecream" . }}
-        </div>
-        <button hx-target="#icecream" hx-post="/icecream" class="bg-pink-200 px-2 py-1 rounded text-slate-700 ">Get more gelato</button>
+    <body class="flex justify-center flex-col m-10 align-middle py-1 gap-10 bg-slate-100">
+        {{ template "contact-form" .Form }}
+        <hr/> 
+        {{ template "display" .Data }}
+
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", (event) => {
+                document.body.addEventListener('htmx:beforeSwap', function(evt) {
+                    if (evt.detail.xhr.status === 422) {
+                            console.log("setting status to paint");
+                        // allow 422 responses to swap as we are using this as a signal that
+                        // a form was submitted with bad data and want to rerender with the
+                        // errors
+                        //
+                        // set isError to false to avoid error logging in console
+                        evt.detail.shouldSwap = true;
+                        evt.detail.isError = false;
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
-{{ end }}
-
-
-{{ block "icecream" .}}
-    <span class="flex align-middle py-1">
-        Icecream {{ .Icecream }}
-    </span>
 {{ end }}
